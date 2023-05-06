@@ -289,6 +289,8 @@ renderer.setClearColor("#2f2837")
 
 // Do shadows
 renderer.shadowMap.enabled = true
+renderer.shadowMap.type = THREE.PCFSoftShadowMap
+
 const shadows = [
   moonLight,
   doorLight,
@@ -298,6 +300,11 @@ const shadows = [
   ...bushes,
 ].forEach(l => (l.castShadow = true))
 const receiveShadow = [floor, walls].map(o => (o.receiveShadow = true))
+
+const shadowConf = [doorLight, ...ghosts].forEach(l => {
+  l.shadow.mapSize.set(256, 256)
+  l.shadow.camera.far = 7
+})
 
 /**
  * Animate
